@@ -16,6 +16,7 @@ def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa):
         posicao = [x, y]
         
     posicoes_ocupadas.append(posicao)
+
     return posicao
 
 

@@ -6,14 +6,36 @@ import motor_grafico as motor  # Utilize as funções do arquivo motor_grafico.p
 
 
 def desenha_tela(janela, estado, altura_tela, largura_tela):
-    # Utilize o dicionário estado para saber onde o jogador e os outros objetos estão.
-    # Por exemplo, para saber a posição do jogador, use estado['pos_jogador']
-    # O mapa esta armazenado em estado['mapa'].
+    mapa = estado['mapa']
+    mensagem = estado['mensagem']
+    vidas = estado['vidas']
+    objetos = estado['objetos']
+    pos_jogador = estado['pos_jogador']
+    max_vidas = estado['max_vidas']
+
     motor.preenche_fundo(janela, PRETO)
-    
-    # O seu código deve desenhar a tela do jogo aqui a partir dos valores no dicionário "estado"
-    # APAGUE ESTA LINHA E A LINHA ABAIXO E ESCREVA SEU CÓDIGO AQUI
-    motor.desenha_string(janela, 0, altura_tela // 2, 'APAGUE ESTA LINHA', PRETO, BRANCO)
+
+    x_mapa = (largura_tela - len(mapa[0])) // 2
+    y_mapa = (altura_tela - len(mapa)) // 2
+
+
+    for linha in range(len(mapa)):
+        for car in range(len(mapa[linha])): 
+            motor.desenha_string(janela, x_mapa + car, y_mapa + linha, mapa[linha][car], VERDE_ESCURO, VERDE_ESCURO)
+
+    for obj in objetos:
+        x = obj['posicao'][0]
+        y = obj['posicao'][1]
+        motor.desenha_string(janela, x + x_mapa, y + y_mapa, obj['tipo'], VERDE_ESCURO, obj['cor'])
+
+    x_jogador = pos_jogador[0]
+    y_jogador = pos_jogador[1]
+    motor.desenha_string(janela, x_mapa + x_jogador, y_mapa + y_jogador, JOGADOR, VERDE_ESCURO, BRANCO)
+
+    motor.desenha_string(janela, 0, 0, CORACAO * vidas, PRETO, VERMELHO)
+    motor.desenha_string(janela, vidas, 0, CORACAO * (max_vidas - vidas), PRETO, BRANCO)
+
+    motor.desenha_string(janela, 0 , altura_tela - 1, mensagem, PRETO, BRANCO)
 
     motor.mostra_janela(janela)
 
