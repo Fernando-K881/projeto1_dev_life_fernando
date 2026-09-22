@@ -58,7 +58,7 @@ def atualiza_estado(estado, tecla):
         if estado['pos_jogador'][1] < len(estado['mapa']) - 1:
             estado['pos_jogador'][1] += 1
 
-
+    
     # O seu código deve atualizar o dicionário "estado" com base na tecla apertada pelo jogador
     # Por exemplo, se o jogador apertar a seta para a esquerda (o valor da variável será "ESQUERDA"), 
     # o seu código deve atualizar o dicionário estado['pos_jogador'][0] -= 1

@@ -20,7 +20,7 @@ No nível básico você deve entender o código fornecido e implementar as segui
     - [x] Mostrar mensagem.
 - [x] Implementar a função `atualiza_estado`:
     - [x] Mover o jogador;
-    - [ ] Impedir o jogador de sair do mapa;
+    - [x] Impedir o jogador de sair do mapa;
     - [ ] Ao colidir com um coração:
         - [ ] Remover o coração da lista de objetos;
         - [ ] Aumentar uma vida caso ainda não esteja no máximo;
