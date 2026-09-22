@@ -51,11 +51,11 @@ def atualiza_estado(estado, tecla):
             estado['pos_jogador'][0] += 1
 
     if tecla == 'CIMA':
-        if estado['pos_jogador'][0] > 0:
+        if estado['pos_jogador'][1] > 0:
             estado['pos_jogador'][1] -= 1
 
     if tecla == 'BAIXO':
-        if estado['pos_jogador'][0] < len(estado['mapa'][0]) - 1:
+        if estado['pos_jogador'][1] < len(estado['mapa']) - 1:
             estado['pos_jogador'][1] += 1
 
 
