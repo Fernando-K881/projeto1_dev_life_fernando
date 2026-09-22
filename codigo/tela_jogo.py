@@ -41,6 +41,24 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
 
 
 def atualiza_estado(estado, tecla):
+
+    if tecla == 'ESQUERDA':
+        if estado['pos_jogador'][0] > 0:
+            estado['pos_jogador'][0] -= 1
+
+    if tecla == 'DIREITA':
+        if estado['pos_jogador'][0] < len(estado['mapa'][0]) - 1:
+            estado['pos_jogador'][0] += 1
+
+    if tecla == 'CIMA':
+        if estado['pos_jogador'][0] > 0:
+            estado['pos_jogador'][1] -= 1
+
+    if tecla == 'BAIXO':
+        if estado['pos_jogador'][0] < len(estado['mapa'][0]) - 1:
+            estado['pos_jogador'][1] += 1
+
+
     # O seu código deve atualizar o dicionário "estado" com base na tecla apertada pelo jogador
     # Por exemplo, se o jogador apertar a seta para a esquerda (o valor da variável será "ESQUERDA"), 
     # o seu código deve atualizar o dicionário estado['pos_jogador'][0] -= 1
