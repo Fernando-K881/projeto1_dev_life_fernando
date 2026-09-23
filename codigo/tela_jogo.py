@@ -68,6 +68,7 @@ def atualiza_estado(estado, tecla):
 
     parede = False
     monstro = False
+    monstro_ataca = False
 
     for obj in estado['objetos']:
         if obj['tipo'] == PAREDE:
@@ -87,6 +88,7 @@ def atualiza_estado(estado, tecla):
                         estado['tela_atual'] = SAIR
                 else:
                     obj['vidas'] -= 1
+                    monstro_ataca = obj
                     estado['mensagem'] = 'Você atacou o monstro'
 
                     if obj['vidas'] <= 0:
@@ -119,8 +121,35 @@ def atualiza_estado(estado, tecla):
             if estado['vidas'] <= 0:
                 estado['tela_atual'] = SAIR
 
+    teclas = ['ESQUERDA', 'DIREITA', 'CIMA', 'BAIXO']
+
+    for ob in estado['objetos']:
+        if ob['tipo'] == MONSTRO and ob != monstro_ataca:
+            direcao = teclas[int(random() * 4)]
+            nova_posicao_monstro = [
+                    ob['posicao'][0],
+                    ob['posicao'][1]
+                ]
+            
+            if direcao == 'ESQUERDA':
+                nova_posicao_monstro[0] -= 1
+
+            elif direcao == 'DIREITA':
+                nova_posicao_monstro[0] += 1
+
+            elif direcao == 'CIMA':
+                nova_posicao_monstro[1] -= 1
+
+            elif direcao == 'BAIXO':
+                nova_posicao_monstro[1] += 1
+
+            if nova_posicao_monstro[0] >= 0 and nova_posicao_monstro[0] < len(estado['mapa'][0]):
+                if nova_posicao_monstro[1] >= 0 and nova_posicao_monstro[1] < len(estado['mapa']):
+                    if nova_posicao_monstro not in [obj['posicao'] for obj in estado['objetos']]:
+                        ob['posicao'] = nova_posicao_monstro
+
     if tecla == 'i':
         estado['tela_atual'] = TELA_INVENTARIO
-  
+    
     elif tecla == motor.ESCAPE or tecla =='q':
         estado['tela_atual'] = SAIR
