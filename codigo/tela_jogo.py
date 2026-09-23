@@ -1,8 +1,6 @@
-from constantes import *  # Você pode usar as constantes definidas em constantes.py, se achar útil
-                          # Por exemplo, usar a constante CORACAO é o mesmo que colocar a string '❤'
-                          # diretamente no código
-import motor_grafico as motor  # Utilize as funções do arquivo motor_grafico.py para desenhar na tela
-                               # Por exemplo: motor.preenche_fundo(janela, [0, 0, 0]) preenche o fundo de preto
+from constantes import *  
+from random import randint,random                                  
+import motor_grafico as motor  
 
 
 def desenha_tela(janela, estado, altura_tela, largura_tela):
@@ -69,15 +67,37 @@ def atualiza_estado(estado, tecla):
             nova_posicao[1] += 1
 
     parede = False
+    monstro = False
 
     for obj in estado['objetos']:
         if obj['tipo'] == PAREDE:
             if nova_posicao == obj['posicao']:
                 parede = True
+    
+        elif obj['tipo'] == MONSTRO:
+            if nova_posicao == obj['posicao']:
+                monstro = True
+                sorteio = random()
+
+                if sorteio < obj['probabilidade_de_ataque']:
+                    estado['vidas'] -= 1
+                    estado['mensagem'] = 'O monstro te atacou'
+
+                    if estado['vidas'] <= 0:
+                        estado['tela_atual'] = SAIR
+                else:
+                    obj['vidas'] -= 1
+                    estado['mensagem'] = 'Você atacou o monstro'
+
+                    if obj['vidas'] <= 0:
+                        estado['objetos'].remove(obj)
+                        estado['pos_jogador'] = nova_posicao
+                        estado['mensagem'] = 'O monstro morreu'
 
     if parede:
         estado['mensagem'] = 'Você não pode atravessar a parede'
-    else:
+
+    elif monstro == False:
         estado['pos_jogador'] = nova_posicao
 
 
