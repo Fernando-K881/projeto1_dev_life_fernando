@@ -89,6 +89,13 @@ def inicializa_estado():
     objetos += gera_objetos(8, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(6, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
+    monstro = gera_objetos(3, MONSTRO, ROXO, largura_mapa, altura_mapa, posicoes_ocupadas)
+
+    for mons in monstro:
+        mons['vidas'] = 5
+        mons['probablidade_de_ataque'] = 0.3
+
+    objetos += monstro
 
     posicoes_paredes = [
 
