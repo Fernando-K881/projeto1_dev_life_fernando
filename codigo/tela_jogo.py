@@ -26,7 +26,11 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     for obj in objetos:
         x = obj['posicao'][0]
         y = obj['posicao'][1]
-        motor.desenha_string(janela, x + x_mapa, y + y_mapa, obj['tipo'], VERDE_ESCURO, obj['cor'])
+
+        if obj['tipo'] == PAREDE:
+            motor.desenha_string(janela, x + x_mapa, y + y_mapa, obj['tipo'], MARROM_MAIS_ESCURO, obj['cor'])
+        else:
+            motor.desenha_string(janela, x + x_mapa, y + y_mapa, obj['tipo'], VERDE_ESCURO, obj['cor'])
 
     x_jogador = pos_jogador[0]
     y_jogador = pos_jogador[1]
@@ -43,21 +47,39 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
 def atualiza_estado(estado, tecla):
     estado['mensagem'] = ''
 
+    nova_posicao = [
+        estado['pos_jogador'][0],
+        estado['pos_jogador'][1]
+    ]
+
     if tecla == 'ESQUERDA':
-        if estado['pos_jogador'][0] > 0:
-            estado['pos_jogador'][0] -= 1
+        if nova_posicao[0] > 0:
+            nova_posicao[0] -= 1
 
     elif tecla == 'DIREITA':
-        if estado['pos_jogador'][0] < len(estado['mapa'][0]) - 1:
-            estado['pos_jogador'][0] += 1
+        if nova_posicao[0] < len(estado['mapa'][0]) - 1:
+            nova_posicao[0] += 1
 
     elif tecla == 'CIMA':
-        if estado['pos_jogador'][1] > 0:
-            estado['pos_jogador'][1] -= 1
+        if nova_posicao[1] > 0:
+            nova_posicao[1] -= 1
 
     elif tecla == 'BAIXO':
-        if estado['pos_jogador'][1] < len(estado['mapa']) - 1:
-            estado['pos_jogador'][1] += 1
+        if nova_posicao[1] < len(estado['mapa']) - 1:
+            nova_posicao[1] += 1
+
+    parede = False
+
+    for obj in estado['objetos']:
+        if obj['tipo'] == PAREDE:
+            if nova_posicao == obj['posicao']:
+                parede = True
+
+    if parede:
+        estado['mensagem'] = 'Você não pode atravessar a parede'
+    else:
+        estado['pos_jogador'] = nova_posicao
+
 
     for objeto in estado['objetos']:
         if estado['pos_jogador'] == objeto['posicao']:
