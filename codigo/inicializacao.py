@@ -142,7 +142,7 @@ def inicializa_estado():
     objetos += monstro
     
     return {
-        'tela_atual': TELA_JOGO,
+        'tela_atual': TELA_INICIAL,
         'pos_jogador': pos_jogador,
         'vidas': 5,  
         'max_vidas': 5,  

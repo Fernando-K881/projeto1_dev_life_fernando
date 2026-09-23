@@ -1,5 +1,5 @@
 from constantes import *  
-from random import randint,random                                  
+from random import random                                  
 import motor_grafico as motor  
 
 
@@ -11,7 +11,7 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     pos_jogador = estado['pos_jogador']
     max_vidas = estado['max_vidas']
 
-    motor.preenche_fundo(janela, PRETO)
+    motor.preenche_fundo(janela, CINZA)
 
     x_mapa = (largura_tela - len(mapa[0])) // 2
     y_mapa = (altura_tela - len(mapa)) // 2
@@ -34,8 +34,8 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     y_jogador = pos_jogador[1]
     motor.desenha_string(janela, x_mapa + x_jogador, y_mapa + y_jogador, JOGADOR, VERDE_ESCURO, BRANCO)
 
-    motor.desenha_string(janela, 0, 0, CORACAO * vidas, PRETO, VERMELHO)
-    motor.desenha_string(janela, vidas, 0, CORACAO * (max_vidas - vidas), PRETO, BRANCO)
+    motor.desenha_string(janela, 0, 0, CORACAO * vidas, CINZA, VERMELHO)
+    motor.desenha_string(janela, vidas, 0, CORACAO * (max_vidas - vidas), CINZA, BRANCO)
 
     motor.desenha_string(janela, 0 , altura_tela - 1, mensagem, PRETO, BRANCO)
 
@@ -146,7 +146,13 @@ def atualiza_estado(estado, tecla):
 
             if nova_posicao_monstro[0] >= 0 and nova_posicao_monstro[0] < len(estado['mapa'][0]):
                 if nova_posicao_monstro != estado['pos_jogador']:
-                    if nova_posicao_monstro not in [obj['posicao'] for obj in estado['objetos']]:
+                    ocupado = False
+
+                    for object in estado['objetos']:
+                        if nova_posicao_monstro == object['posicao']:
+                            ocupado = True
+
+                    if ocupado == False:
                         ob['posicao'] = nova_posicao_monstro
 
     if tecla == 'i':

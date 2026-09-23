@@ -14,12 +14,14 @@ VERMELHO = [255, 0, 0]
 ROXO = [200, 0, 200]
 MARROM_ESCURO = [100, 50, 0]
 MARROM_MAIS_ESCURO = [75, 40, 0]
+CINZA = [137,137,137]
 
 # Telas
 # As constantes abaixo são apenas números. Elas são usadas para controlar qual tela deve ser desenhada.
 SAIR = 0
 TELA_JOGO = 1
 TELA_INVENTARIO = 2
+TELA_INICIAL = 3
 
 # Objetos
 # As constantes abaixo são os caracteres que representam cada objeto no mapa.
