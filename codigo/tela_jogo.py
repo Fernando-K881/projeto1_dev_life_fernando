@@ -78,6 +78,7 @@ def atualiza_estado(estado, tecla):
         elif obj['tipo'] == MONSTRO:
             if nova_posicao == obj['posicao']:
                 monstro = True
+                monstro_ataca = obj
                 sorteio = random()
 
                 if sorteio < obj['probabilidade_de_ataque']:
@@ -144,7 +145,7 @@ def atualiza_estado(estado, tecla):
                 nova_posicao_monstro[1] += 1
 
             if nova_posicao_monstro[0] >= 0 and nova_posicao_monstro[0] < len(estado['mapa'][0]):
-                if nova_posicao_monstro[1] >= 0 and nova_posicao_monstro[1] < len(estado['mapa']):
+                if nova_posicao_monstro != estado['pos_jogador']:
                     if nova_posicao_monstro not in [obj['posicao'] for obj in estado['objetos']]:
                         ob['posicao'] = nova_posicao_monstro
 
