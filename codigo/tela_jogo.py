@@ -86,7 +86,7 @@ def atualiza_estado(estado, tecla):
                     estado['mensagem'] = 'O monstro te atacou'
 
                     if estado['vidas'] <= 0:
-                        estado['tela_atual'] = SAIR
+                        estado['tela_atual'] = TELA_GAMEOVER
                 else:
                     obj['vidas'] -= 1
                     monstro_ataca = obj
@@ -120,7 +120,7 @@ def atualiza_estado(estado, tecla):
                 estado['mensagem'] = 'Você perdeu uma vida'
 
             if estado['vidas'] <= 0:
-                estado['tela_atual'] = SAIR
+                estado['tela_atual'] = TELA_GAMEOVER
 
     teclas = ['ESQUERDA', 'DIREITA', 'CIMA', 'BAIXO']
 

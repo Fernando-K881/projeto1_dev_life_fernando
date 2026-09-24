@@ -2,7 +2,8 @@ import motor_grafico
 import tela_inventario
 import tela_jogo
 import tela_inicial
-from constantes import SAIR, TELA_INVENTARIO, TELA_JOGO, TELA_INICIAL
+import tela_gameover
+from constantes import SAIR, TELA_INVENTARIO, TELA_JOGO, TELA_INICIAL, TELA_GAMEOVER
 from inicializacao import inicializa_estado
 
 
@@ -42,6 +43,14 @@ def jogo(janela, altura_tela, largura_tela):
             tela_inicial.desenha_tela(janela, estado, altura_tela, largura_tela)
             tecla_apertada = motor_grafico.pega_tecla_apertada(janela)
             tela_inicial.atualiza_estado(estado, tecla_apertada)
+        elif estado['tela_atual'] == TELA_GAMEOVER:
+            tela_gameover.desenha_tela(janela, estado, altura_tela, largura_tela)
+            tecla_apertada = motor_grafico.pega_tecla_apertada(janela)
+            tela_gameover.atualiza_estado(estado, tecla_apertada)
+
+            if tecla_apertada == 'p':
+                estado = inicializa_estado()
+                estado['tela_atual'] = TELA_JOGO
 
 # Não se preocupe, você não precisa entender o que está acontecendo aqui.
 # É apenas uma forma de chamar a função jogo() usando a biblioteca curses.
