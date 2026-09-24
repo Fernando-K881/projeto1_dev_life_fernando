@@ -14,7 +14,7 @@ def desenha_tela(janela, estado, altura, largura):
     motor.desenha_string(janela, 1, 6, 'Lute contra os monstros, ataque eles', PRETO, BRANCO)
     motor.desenha_string(janela, 1, 7, 'Caso você morra, terá instruções na tela de gameover', PRETO, BRANCO)
     motor.desenha_string(janela, 1, 9, "Aperte a tecla 'q' a qualuqer momento para sair do jogo", PRETO, BRANCO)
-    motor.desenha_string(janela, 1, 11,'Aperte "n" para comecar.', PRETO, BRANCO)
+    motor.desenha_string(janela, 1, 11,'Aperte "j" para comecar.', PRETO, BRANCO)
 
     motor.mostra_janela(janela)
 
@@ -22,7 +22,7 @@ def desenha_tela(janela, estado, altura, largura):
 
 
 def atualiza_estado(estado, tecla_apertada):
-    if tecla_apertada == 'n':
+    if tecla_apertada == 'j':
         estado['tela_atual'] = TELA_JOGO
 
     elif tecla_apertada in (motor.ESCAPE, 'q'):
