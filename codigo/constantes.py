@@ -23,6 +23,7 @@ TELA_JOGO = 1
 TELA_INVENTARIO = 2
 TELA_INICIAL = 3
 TELA_GAMEOVER = 4
+TELA_INSTRUCAO = 5
 
 # Objetos
 # As constantes abaixo são os caracteres que representam cada objeto no mapa.

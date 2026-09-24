@@ -1,7 +1,5 @@
 from constantes import *
 import motor_grafico as motor
-from inicializacao import inicializa_estado
-from constantes import TELA_GAMEOVER
 
 def desenha_tela(janela, estado, altura, largura):
     # Você pode usar esta função como base para a sua função desenha_tela do arquivo tela_jogo.py

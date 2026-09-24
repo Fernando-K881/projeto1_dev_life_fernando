@@ -15,6 +15,6 @@ def desenha_tela(janela, estado, altura, largura):
 
 def atualiza_estado(estado, tecla_apertada):
     if tecla_apertada == 'n':
-        estado['tela_atual'] = TELA_JOGO
+        estado['tela_atual'] = TELA_INSTRUCAO
     elif tecla_apertada in (motor.ESCAPE, 'q'):
         estado['tela_atual'] = SAIR
