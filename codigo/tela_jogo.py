@@ -37,6 +37,9 @@ def desenha_tela(janela, estado, altura_tela, largura_tela):
     motor.desenha_string(janela, 0, 0, CORACAO * vidas, CINZA, VERMELHO)
     motor.desenha_string(janela, vidas, 0, CORACAO * (max_vidas - vidas), CINZA, BRANCO)
 
+    motor.desenha_string(janela, 0, 1, 'Nivel: ' + str(estado['nivel']), CINZA, BRANCO)
+    motor.desenha_string(janela, 0, 2, 'XP: ' + str(estado['experiencia']), CINZA, BRANCO)
+
     motor.desenha_string(janela, 0 , altura_tela - 1, mensagem, PRETO, BRANCO)
 
     motor.mostra_janela(janela)
@@ -75,7 +78,7 @@ def atualiza_estado(estado, tecla):
             if nova_posicao == obj['posicao']:
                 parede = True
     
-        elif obj['tipo'] == MONSTRO:
+        elif obj['tipo'] == MONSTRO or obj['tipo'] == MONSTRO_1 or obj['tipo'] == MONSTRO_2:
             if nova_posicao == obj['posicao']:
                 monstro = True
                 monstro_ataca = obj
@@ -95,7 +98,17 @@ def atualiza_estado(estado, tecla):
                     if obj['vidas'] <= 0:
                         estado['objetos'].remove(obj)
                         estado['pos_jogador'] = nova_posicao
-                        estado['mensagem'] = 'O monstro morreu'
+                        estado['experiencia'] += 1
+                        
+                        if estado['experiencia'] >= 3:
+                            estado['nivel'] += 1
+                            estado['experiencia'] = 0
+                            estado['max_vidas'] += 1
+                            estado['vidas'] += 1
+                            estado['mensagem'] = 'Você passou de nível!'
+                        
+                        else:
+                            estado['mensagem'] = 'O monstro morreu'
 
     if parede:
         estado['mensagem'] = 'Você não pode atravessar a parede'
@@ -125,35 +138,49 @@ def atualiza_estado(estado, tecla):
     teclas = ['ESQUERDA', 'DIREITA', 'CIMA', 'BAIXO']
 
     for ob in estado['objetos']:
-        if ob['tipo'] == MONSTRO and ob != monstro_ataca:
-            direcao = teclas[int(random() * 4)]
-            nova_posicao_monstro = [
-                    ob['posicao'][0],
-                    ob['posicao'][1]
-                ]
+        if ob['tipo'] == MONSTRO or ob['tipo'] == MONSTRO_1 or ob['tipo'] == MONSTRO_2:
+            if ob != monstro_ataca:
+                if ob['tipo'] == MONSTRO:
+                    direcao = teclas[int(random() * 4)]
+                
+                elif ob['tipo'] == MONSTRO_1:
+                    direcoes = ['CIMA', 'BAIXO']
+                    direcao = direcoes[int(random() * 2)]
+                
+                elif ob['tipo'] == MONSTRO_2:
+                    direcoes = ['ESQUERDA', 'DIREITA']
+                    direcao = direcoes[int(random() * 2)]
+                
+                nova_posicao_monstro = [
+                        ob['posicao'][0],
+                        ob['posicao'][1]
+                    ]
             
-            if direcao == 'ESQUERDA':
-                nova_posicao_monstro[0] -= 1
+                if direcao == 'ESQUERDA':
+                    nova_posicao_monstro[0] -= 1
 
-            elif direcao == 'DIREITA':
-                nova_posicao_monstro[0] += 1
+                elif direcao == 'DIREITA':
+                    nova_posicao_monstro[0] += 1
 
-            elif direcao == 'CIMA':
-                nova_posicao_monstro[1] -= 1
+                elif direcao == 'CIMA':
+                    nova_posicao_monstro[1] -= 1
 
-            elif direcao == 'BAIXO':
-                nova_posicao_monstro[1] += 1
+                elif direcao == 'BAIXO':
+                    nova_posicao_monstro[1] += 1
 
-            if nova_posicao_monstro[0] >= 0 and nova_posicao_monstro[0] < len(estado['mapa'][0]):
-                if nova_posicao_monstro != estado['pos_jogador']:
-                    ocupado = False
+                if nova_posicao_monstro[0] >= 0 and nova_posicao_monstro[0] < len(estado['mapa'][0]):
+                    if nova_posicao_monstro[1] >= 0 and nova_posicao_monstro[1] < len(estado['mapa']):
+                        ocupado = False
 
-                    for object in estado['objetos']:
-                        if nova_posicao_monstro == object['posicao']:
+                        if nova_posicao_monstro == estado['pos_jogador']:
                             ocupado = True
 
-                    if ocupado == False:
-                        ob['posicao'] = nova_posicao_monstro
+                        for object in estado['objetos']:
+                            if nova_posicao_monstro == object['posicao']:
+                                ocupado = True
+
+                        if ocupado == False:
+                            ob['posicao'] = nova_posicao_monstro
 
     if tecla == 'i':
         estado['tela_atual'] = TELA_INVENTARIO

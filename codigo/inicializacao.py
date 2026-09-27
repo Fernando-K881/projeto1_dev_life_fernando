@@ -140,12 +140,32 @@ def inicializa_estado():
         mons['probabilidade_de_ataque'] = 0.3
 
     objetos += monstro
-    
+
+    monstro_1 = gera_objetos(2, MONSTRO_1, AZUL, largura_mapa, altura_mapa, posicoes_ocupadas)
+
+    for mons in monstro_1:
+        mons['vidas'] = 3
+        mons['probabilidade_de_ataque'] = 0.5
+
+    objetos += monstro_1
+
+    monstro_2 = gera_objetos(2, MONSTRO_2, AMARELO, largura_mapa, altura_mapa, posicoes_ocupadas)
+
+    for mons in monstro_2:
+        mons['vidas'] = 7
+        mons['probabilidade_de_ataque'] = 0.2
+
+    objetos += monstro_2
+
+
+
     return {
         'tela_atual': TELA_INICIAL,
         'pos_jogador': pos_jogador,
         'vidas': 5,  
-        'max_vidas': 5,  
+        'max_vidas': 5,
+        'experiencia': 0,
+        'nivel': 1,  
         'objetos': objetos,
         'mapa': mapa,
         'mensagem': '',  
