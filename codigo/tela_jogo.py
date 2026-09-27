@@ -105,7 +105,7 @@ def atualiza_estado(estado, tecla):
                             estado['experiencia'] = 0
                             estado['max_vidas'] += 1
                             estado['vidas'] += 1
-                            estado['mensagem'] = 'Você passou de nível!'
+                            estado['mensagem'] = 'Você passou de nível'
                         
                         else:
                             estado['mensagem'] = 'O monstro morreu'
