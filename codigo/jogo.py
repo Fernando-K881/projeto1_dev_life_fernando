@@ -32,6 +32,7 @@ def jogo(janela, altura_tela, largura_tela):
         # A função atualiza_estado é responsável por modificar o valor na chave 'tela_atual',
         # que é a chave que controla qual tela deve ser desenhada (ou se o jogo deve terminar)
         
+        # desenha e atualiza a tela correspondente ao estado atual do jogo
         if estado['tela_atual'] == TELA_JOGO:
             tela_jogo.desenha_tela(janela, estado, altura_tela, largura_tela)
             tecla_apertada = motor_grafico.pega_tecla_apertada(janela)
@@ -49,6 +50,7 @@ def jogo(janela, altura_tela, largura_tela):
             tecla_apertada = motor_grafico.pega_tecla_apertada(janela)
             tela_gameover.atualiza_estado(estado, tecla_apertada)
 
+            # reinicia o estado do jogo quando o jogador escolhe jogar novamente
             if tecla_apertada == 'p':
                 estado = inicializa_estado()
                 estado['tela_atual'] = TELA_JOGO

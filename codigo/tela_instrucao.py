@@ -8,6 +8,7 @@ def desenha_tela(janela, estado, altura, largura):
     # alterar este arquivo no nível avançado)
     motor.preenche_fundo(janela, CINZA)
 
+    # desenha a tela e as opções disponíveis para o jogador
     motor.desenha_string(janela,  1,  2, 'INSTRUCOES', PRETO, BRANCO)
     motor.desenha_string(janela, 1, 4,'Use as setas para movimentar o jogador',PRETO, BRANCO)
     motor.desenha_string(janela, 1, 5, 'Pegue os coracoes e evite os espinhos.', PRETO, BRANCO)
@@ -20,7 +21,7 @@ def desenha_tela(janela, estado, altura, largura):
 
 
 
-
+# atualiza a tela de acordo com a tecla apertada pelo jogador
 def atualiza_estado(estado, tecla_apertada):
     if tecla_apertada == 'j':
         estado['tela_atual'] = TELA_JOGO

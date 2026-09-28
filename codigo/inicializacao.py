@@ -5,7 +5,7 @@ from constantes import *  # Você pode usar as constantes definidas em constante
                           # diretamente no código
 
 
-def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa):
+def gera_posicao_desocupada(posicoes_ocupadas, largura_mapa, altura_mapa): # gera uma posição aleatória que ainda não está ocupada
     x = randint(1, largura_mapa-2)
     y = randint(1, altura_mapa-2)
     posicao = [x, y]
@@ -48,7 +48,7 @@ def gera_objetos(quantidade, tipo, cor, largura_mapa, altura_mapa, posicoes_ocup
     return objetos
 
 
-def inicializa_estado():
+def inicializa_estado():  # cria o mapa, os objetos e o estado inicial do jogo
 
     mapa = [
         [' '] * 65,
@@ -85,7 +85,8 @@ def inicializa_estado():
 
     posicoes_ocupadas = [pos_jogador]
     objetos = []
-    
+
+    # lê o arquivo do mapa para criar as paredes
     with open('mapa.txt', 'r') as arquivo:
 
         mapa_temp = arquivo.readlines()
@@ -100,9 +101,11 @@ def inicializa_estado():
                 })
                 posicoes_ocupadas.append([j,i])
 
+    # gera corações e espinhos em posições aleatórias
     objetos += gera_objetos(8, CORACAO, VERMELHO, largura_mapa, altura_mapa, posicoes_ocupadas)
     objetos += gera_objetos(6, ESPINHO, VERDE_CLARO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
+    # cria cada tipo de monstro com suas vidas e chance de ataque
     monstro = gera_objetos(3, MONSTRO, ROXO, largura_mapa, altura_mapa, posicoes_ocupadas)
 
     for mons in monstro:
@@ -128,7 +131,7 @@ def inicializa_estado():
     objetos += monstro_2
 
 
-
+    # retorna todas as informações necessárias para iniciar o jogo
     return {
         'tela_atual': TELA_INICIAL,
         'pos_jogador': pos_jogador,
